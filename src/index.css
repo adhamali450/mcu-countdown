@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+
+  .clip-path {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  }
+
+  .outer-container{
+    @apply w-full max-w-[1920px] mx-auto;
+  }
+
+  .link{
+    @apply text-primaryRed;
+    @apply font-semibold;
+    @apply pb-1;
+    @apply border-b-2;
+    @apply border-transparent;
+    @apply hover:border-b-primaryRed;
+  }
+
+  .films-grid{
+    @apply grid;
+    @apply auto-fill;
+    @apply gap-3;
+    @apply xs:gap-5;
+    @apply auto-fill;
+  }
+
+  .auto-fill{
+    grid-template-columns: repeat(auto-fill, minmax(170px, auto));
+  }
+
+  @media (max-width: 416px) {
+    .auto-fill{
+      grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+    }
+  }
+
+  @media (max-width: 376px) {
+    .auto-fill{
+      grid-template-columns: 200px;
+      justify-content: center;
+    }
+  }
+}
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  
+  color: #202020;
+  color-scheme: light dark;
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root
+{
+  min-height: inherit;
+}
