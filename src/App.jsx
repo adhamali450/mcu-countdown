@@ -41,7 +41,7 @@ function filterFilmData(film) {
     isMovie: film.type == "Movie",
     id: film.id,
     poster_path: "https://image.tmdb.org/t/p/w342" + film.poster_path,
-    backdrop_path: "https://image.tmdb.org/t/p/original" + film.backdrop_path,
+    backdrop_path: "https://image.tmdb.org/t/p/w1280" + film.backdrop_path,
   };
 }
 
