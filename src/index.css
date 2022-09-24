@@ -20,12 +20,12 @@
     @apply hover:border-b-primaryRed;
   }
 
+  .complete-p{
+    @apply mt-6 max-w-[60ch] text-sm sm:text-base;
+  }
+
   .films-grid{
-    @apply grid;
-    @apply auto-fill;
-    @apply gap-3;
-    @apply xs:gap-5;
-    @apply auto-fill;
+    @apply grid auto-fill gap-3 xs:gap-5 auto-fill;
   }
 
   .auto-fill{

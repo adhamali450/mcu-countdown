@@ -5,39 +5,44 @@ import axios from "axios";
 import FilmsList from "./components/FilmListing/FilmsList";
 import { SkeletonTheme } from "react-loading-skeleton";
 
-async function fetchUpcommingFilms() {
-  const upcomming = [];
+// [1] Fetches all movies by Marvel Studios (first page only)
+async function fetchMarvelFilms() {
+  const API_KEY = "b8656aad79d3af2e20690f7c808f7211";
+  const COMPANY_ID = "420";
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=primary_release_date.desc&page=1&with_companies=${COMPANY_ID}`;
 
-  let date = "";
-  do {
-    let url = `https://www.whenisthenextmcufilm.com/api${
-      date ? `?date=${date}` : ""
-    }`;
-
-    await axios
-      .get(url)
-      .then((response) => {
-        const current = response.data;
-        delete current["following_production"];
-        date = current["release_date"];
-        if (date) upcomming.push(current);
-      })
-      .catch((error) =>
-        upcomming.push(`Error fetching this movie/show: ${error}`)
-      );
-  } while (date);
-
-  return upcomming;
+  const response = await axios.get(url);
+  return response.data.results;
 }
 
-async function fetchFilmDetails(title) {
-  const API_KEY = "b8656aad79d3af2e20690f7c808f7211";
-  title = title.trim().toLowerCase().replace(" ", "+");
-  const details_url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${title}`;
+// [2] Extracts only the upcomming films which belongs to superheroes genre
+async function extractUpcomming(films) {
+  const futureDated = (film) => {
+    return new Date(film.release_date) > Date.now();
+  };
 
-  return axios
-    .get(details_url)
-    .then((response) => (response = response.data.results[0]));
+  const superheroesFilm = (film) => {
+    for (let id of film.genre_ids) {
+      if ([12, 14, 28, 878].includes(id)) return true;
+    }
+
+    return false;
+  };
+
+  return films.filter((film) => futureDated(film) && superheroesFilm(film));
+}
+
+// [3] Filters the data we need from the film object
+function filterFilmData(film) {
+  return {
+    title: film.title,
+    overview: film.overview,
+    release_date: film.release_date,
+    isMovie: film.type == "Movie",
+    id: film.id,
+    poster_path: "https://image.tmdb.org/t/p/w342" + film.poster_path,
+    backdrop_path: "https://image.tmdb.org/t/p/original" + film.backdrop_path,
+  };
 }
 
 function App() {
@@ -46,25 +51,16 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const upcommingFilms = await fetchUpcommingFilms();
+      const start = Date.now();
 
-      // Taking only relevant data that will be used ignoring the others
-      const finalPromises = upcommingFilms.map(async (film) => {
-        const details = await fetchFilmDetails(film.title);
+      const allFilms = await fetchMarvelFilms();
+      const upcommingFilms = await extractUpcomming(allFilms);
+      const MinifiedFilms = upcommingFilms.map((film) => filterFilmData(film));
+      const reversedFilms = MinifiedFilms.reverse();
+      setFilms(reversedFilms);
 
-        return {
-          title: film.title,
-          overview: film.overview,
-          release_date: film.release_date,
-          isMovie: film.type == "Movie",
-          id: details.id,
-          poster_url: film.poster_url,
-          backdrop_path:
-            "https://image.tmdb.org/t/p/original" + details.backdrop_path,
-        };
-      });
-
-      setFilms(await Promise.all(finalPromises));
+      const end = Date.now();
+      console.log(`Execution time: ${end - start} ms`);
     })();
   }, []);
 
@@ -83,12 +79,15 @@ function App() {
 
   return (
     <div className="App flex flex-col min-h-[100vh]">
+      {/* Hero */}
       <SkeletonTheme baseColor="#202020" highlightColor="#282828">
         <Hero
           className="outer-container"
           displayedFilm={films[currFilmIndex]}
         />
       </SkeletonTheme>
+
+      {/* Films List */}
       <div className="outer-container grow px-8 sm:px-11">
         <section className="container mx-auto py-9 ">
           <h2 className="text-3xl md:text-4xl font-bebas mb-6">
@@ -103,6 +102,7 @@ function App() {
         </section>
       </div>
 
+      {/* Footer */}
       <Footer className="outer-container" />
     </div>
   );

@@ -17,7 +17,7 @@ const FilmsList = ({ className, remFilms, onFilmClick }) => {
           <li key={film.id}>
             <FilmCard
               id={film.id}
-              poster_url={film.poster_url}
+              poster_path={film.poster_path}
               title={film.title}
               release_date={film.release_date}
               onFilmClick={onFilmClick}

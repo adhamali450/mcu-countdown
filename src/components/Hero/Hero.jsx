@@ -23,7 +23,7 @@ const Hero = ({ className, displayedFilm }) => {
         />
       </header>
       <div className="container mx-auto pt-6 sm:pt-10 pb-12 sm:pb-24">
-        <Badge
+        {/* <Badge
           text={
             displayedFilm ? (
               displayedFilm.isMovie ? (
@@ -42,7 +42,7 @@ const Hero = ({ className, displayedFilm }) => {
                 : "bg-mainBlue"
               : ""
           }
-        />
+        /> */}
         <h1 className="mt-3 font-bebas drop-shadow-lg text-5xl xl:text-7xl sm:text-6xl">
           {displayedFilm ? displayedFilm.title : <Skeleton width="50%" />}
         </h1>
@@ -52,7 +52,7 @@ const Hero = ({ className, displayedFilm }) => {
             displayedFilm ? new Date(displayedFilm.release_date) : undefined
           }
         />
-        <p className="mt-6 max-w-[60ch] text-sm sm:text-base">
+        <p className="complete-p">
           {displayedFilm ? (
             displayedFilm.overview
           ) : (
