@@ -91,7 +91,7 @@ function App() {
       <div className="outer-container grow px-8 sm:px-11">
         <section className="container mx-auto py-9 ">
           <h2 className="text-3xl md:text-4xl font-bebas mb-6">
-            More upcomming
+            More upcoming
           </h2>
           <FilmsList
             onFilmClick={filmClickHandler}
