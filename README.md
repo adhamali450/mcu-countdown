@@ -3,7 +3,7 @@
 
 A countdown for the upcomming movies for Marvel Cinematic Universe.
 
-![MCU-countdown Thumbnail](https://raw.githubusercontent.com/adhamali450/mcu-countdown/master/public/facebook-preview-image.png?token=GHSAT0AAAAAABZNZEEPDZEEJ4ZRFBDRNLY4YZ4CTYQ).
+![MCU-countdown Thumbnail](https://raw.githubusercontent.com/adhamali450/mcu-countdown/master/public/facebook-preview-image.png?token=GHSAT0AAAAAABZNZEEOHUIKQ5DNSMBRON5YYZ5UBYA).
 
 
 
