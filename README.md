@@ -16,9 +16,8 @@ Gets all **Marvel Studios** (identified by id 420) movies sorted descendingly by
 Afterwards, I take the unreleased yet movies 
 
 ```http
-  GET api/movie?api_key=YOUR_KEY&language=en-US&sort_by=primary_release_date.desc&page=1&with_companies=420
+  GET api/movie?api_key=xxxxxx&language=en-US&sort_by=primary_release_date.desc&page=1&with_companies=420
 ```
-
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -31,7 +30,7 @@ Afterwards, I take the unreleased yet movies
 after cloning the repo:
 
 ```bash
-  cd mcu-coundown
+  cd mcu-countdown
   npm install
 ```
 
